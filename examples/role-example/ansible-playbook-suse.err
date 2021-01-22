@@ -1,0 +1,16 @@
+ansible-playbook helloworld.yml --private-key ~/.ssh/ansible-aws.pem -e target=18.191.195.170
+[WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+PLAY [18.191.195.170] **************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+[WARNING]: Platform linux on host 18.191.195.170 is using the discovered Python interpreter at /usr/bin/python3.6, but
+future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+ok: [18.191.195.170]
+
+TASK [nodejs : Installing node and npm] ********************************************************************************
+failed: [18.191.195.170] (item=['nodejs', 'npm']) => {"ansible_facts": {"pkg_mgr": "zypper"}, "ansible_loop_var": "item", "changed": false, "item": ["nodejs", "npm"], "msg": "Unsupported parameters for (zypper) module: enablerepo Supported parameters include: disable_gpg_check, disable_recommends, extra_args, extra_args_precommand, force, name, oldpackage, state, type, update_cache"}
+
+PLAY RECAP *************************************************************************************************************
+18.191.195.170             : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0 
