@@ -21,6 +21,14 @@ Execute playbook for list hosts
 
 ```
 % ansible-playbook helloworld.yml --private-key ~/.ssh/ansible-aws.pem -e target=ec2 --list-hosts
+...
+  play #1 (ec2): ec2	TAGS: []
+    pattern: ['ec2']
+    hosts (4):
+      18.191.195.170
+      3.138.67.211
+      3.133.152.208
+      100.25.160.170
 ```
 
 Execute playbook for predict changes
