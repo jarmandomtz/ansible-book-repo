@@ -1,6 +1,4 @@
 ---
-# defaults file for helloworld
----
 # defaults file for provision_ansible_pull_update
 # schedule is fed directly to cron
 schedule: '*/2 * * * *'
