@@ -28,6 +28,6 @@
 - name: Load crontab configuration
   command:
     cmd: /usr/bin/crontab /etc/cron.d/ansible-pull
-    become: yes
-    become_user: "{{ cron_user }}"
-    chdir: /home/ec2-user
+    chdir: /home/ec2-user    
+#    become: yes
+#    become_user: "{{ cron_user }}"
