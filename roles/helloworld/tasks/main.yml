@@ -18,6 +18,14 @@
     group: root
     mode: 0644
 
+- name: Create local directory for git repo to work from
+  file:
+    path: "{{workdir}}"
+    state: directory
+    owner: "{{ cron_user }}"
+    group: "{{ cron_user }}"
+    mode: 0751
+
 - name: Create crontab entry to clone/pull git repository
   template:
     src: templates/etc_cron.d_ansible-pull.j2
@@ -33,7 +41,7 @@
     owner: "{{ cron_user }}"
     group: "{{ cron_user }}"
     mode: 0644
-    
+
 - name: Starting the helloworld node
   service:
     name: helloworld
