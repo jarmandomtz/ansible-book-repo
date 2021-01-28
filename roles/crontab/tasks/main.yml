@@ -26,6 +26,6 @@
     mode: 0644
 
 - name: Load crontab configuration
-  ansible.builtin.shell: crontab /etc/cron.d/ansible-pull
-  args:
+  ansible.builtin.shell:
+    cmd: /usr/bin/crontab /etc/cron.d/ansible-pull
     chdir: /home/ec2-user
