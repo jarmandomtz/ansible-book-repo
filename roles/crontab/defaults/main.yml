@@ -16,3 +16,6 @@ workdir: /var/lib/ansible/local
 # repo must contain a local.yml file at top level
 #repo_url: https://github.com/jschulthess/ansible-pull-update.git
 repo_url: https://github.com/jarmandomtz/ansible-book-repo.git
+
+# host command
+host_cmd: '-i localhost'

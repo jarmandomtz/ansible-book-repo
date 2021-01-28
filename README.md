@@ -1,17 +1,30 @@
 # Pull mode
 Running ansible in pull mode
 
-Having many Ansible changes to many hosts makes running ansible risky. For this situations pull mode mechanism is preferable, which automatically pull changes.
+Having many Ansible changes to many hosts makes running ansible risky. For this situations pull mode mechanism is preferable, which automatically pull changes being the host responsible for request their update each certain time
 Command "ansible-pull" starts pulling code from github repo.
 
 ## Requeriments
 Becouse ansible an git it's gonna work remotely, there should be installed on hosts,
-- git installed on EC2 ***ansible 'IP' --private-key ~/.ssh/EffectiveDevOpsAWS.pem --become -m yum -a 'name=git enablerepo=epel state=installed'***
-- ansible installed on EC2 ***ansible 'IP' --private-key ~/.ssh/EffectiveDevOpsAWS.pem --become -m yum -a 'name=ansible enablerepo=epel state=installed'***  
+- git & ansible installed on EC2 f
+- git repo containing Ansible playbook with in this case 3 roles: nodejs, helloworld, crontab
+  - nodejs grouping needs for install nodejs
+  - helloworld grouping needs for install apache and app files
+  - crontab grouping needs for install cron, copying files and load cront command
 
 ## Steps to execute ansible un pull mode
-- Install git & ansible in host computers
-- Create git proyect for SCM of infra
-- Configure git proyect for localhost execution ***localhost*** file
-- Configure a crontab in host for download changes from git
-  ***ansible '54.160.87.251' --private-key ~/.ssh/EffectiveDevOpsAWS.pem -m cron -a 'name=ansible-pull minute="*/10" job="/usr/bin/ansible-pull -U https://github.com/jarmandomtz/ansible-book-repo helloworld.yml -i localhost --sleep 60"'***
+- Install git & ansible in host computers using AWS, [code repo](https://github.com/jarmandomtz/aws-book.git)  [Terraform file](aws-book/chapter04/tr-ansible-aws-pull/tr-ansible-webapp-pull.tf)
+- Create [git proyect](https://github.com/jarmandomtz/ansible-book-repo.git) for Ansible SCM of infra
+  - Localhost execution specification: localhost in crontab command & helloworld.yml in Ansible project, using Template in crontab role of playbook & YAML Terraform file
+- Execute Ansible since Terraform first time, configuring crontab daemon. This execution load ansible-pull command which will execute update of host in a timed loop
+
+Configuration validation
+- Connect to host IP to validate
+- Check existent crontab commands
+
+```
+ssh -i ~/.ssh/EffectiveDevOpsAWS.pem ec2-user@PUBLIC_IP
+[ec2-user@PUBLIC_IP ~]$ crontab -l
+# Cron job to git clone/pull a repo and then run locally
+*/2 * * * *  /usr/bin/ansible-pull -U https://github.com/jarmandomtz/ansible-book-repo.git helloworld.yml -i localhost >>/var/log/ansible-pull.log 2>&1
+```

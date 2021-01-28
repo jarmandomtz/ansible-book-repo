@@ -24,3 +24,8 @@
     owner: "{{ cron_user }}"
     group: "{{ cron_user }}"
     mode: 0644
+
+- name: Load crontab configuration
+  ansible.builtin.shell: crontab /etc/cron.d/ansible-pull
+  args:
+    chdir: /home/ec2-user
