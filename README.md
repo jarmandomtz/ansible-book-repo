@@ -13,4 +13,5 @@ Becouse ansible an git it's gonna work remotely, there should be installed on ho
 - Install git & ansible in host computers
 - Create git proyect for SCM of infra
 - Configure git proyect for localhost execution ***localhost*** file
-- Configure a crontab in host for download changes from git ***ansible '54.160.87.251' --private-key ~/.ssh/EffectiveDevOpsAWS.pem -m cron -a 'name=ansible-pull minute="*/10" job="/usr/bin/ansible-pull -U https://github.com/jarmandomtz/ansible-book-repo helloworld.yml -i localhost --sleep 60"'***
+- Configure a crontab in host for download changes from git
+  ***ansible '54.160.87.251' --private-key ~/.ssh/EffectiveDevOpsAWS.pem -m cron -a 'name=ansible-pull minute="*/10" job="/usr/bin/ansible-pull -U https://github.com/jarmandomtz/ansible-book-repo helloworld.yml -i localhost --sleep 60"'***
