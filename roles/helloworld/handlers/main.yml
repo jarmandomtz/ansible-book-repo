@@ -5,3 +5,4 @@
   service:
     name: helloworld
     state: restarted
+  when: ansible_facts['pkg_mgr'] == "yum"
