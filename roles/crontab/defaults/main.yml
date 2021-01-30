@@ -6,6 +6,9 @@ schedule: '*/2 * * * *'
 # User to run ansible-pull as from cron
 cron_user: ec2-user
 
+# Group to run ansible-pull as from cron on SUSE
+suse_group: users
+
 # File that ansible will use for logs
 logfile: /var/log/ansible-pull.log
 
