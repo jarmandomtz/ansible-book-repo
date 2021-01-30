@@ -40,4 +40,4 @@
   ansible.builtin.systemd:
     state: started
     name: pm2-ec2-user
-  when: ansible_facts['pkg_mgr'] == "zipper"
+  when: ansible_facts['pkg_mgr'] == "zypper"
