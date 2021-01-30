@@ -22,5 +22,11 @@
     - npm
   when: ansible_facts['pkg_mgr'] == "yum"
 
+
+- name: Create node service on SUSE
+  command:
+    cmd: sudo npm install pm2@latest -g && pm2 start hello.js && sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user && pm2 save
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
 # suse
 # community.general.zypper

@@ -28,15 +28,6 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_facts['pkg_mgr'] == "zypper"
-
-- name: Copying upstart file
-  copy:
-    src: helloworld.conf
-    dest: /etc/init/helloworld.conf
-    owner: root
-    group: root
-    mode: 0644
   when: ansible_facts['pkg_mgr'] == "yum"
 
 - name: Starting the helloworld node
