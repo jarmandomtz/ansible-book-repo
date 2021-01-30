@@ -25,7 +25,7 @@
 
 - name: Create node service on SUSE
   command:
-    cmd: sudo npm install pm2@latest -g && pm2 start helloworld.js && sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user && pm2 save && sudo systemctl start pm2-ec2-user && sleep 30
+    cmd: sudo npm install pm2@latest -g && pm2 start helloworld.js && sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user && sleep 30 && pm2 save && sleep 30 && sudo systemctl start pm2-ec2-user 
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
 # suse
