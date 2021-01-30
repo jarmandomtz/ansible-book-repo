@@ -46,7 +46,7 @@
     mode: 0644
   when: ansible_facts['pkg_mgr'] == "yum"
 
- name: Create logrotate entry for ansible-pull.log on SUSE
+- name: Create logrotate entry for ansible-pull.log on SUSE
   template:
     src: templates/etc_logrotate.d_ansible-pull.j2
     dest: /etc/logrotate.d/ansible-pull
