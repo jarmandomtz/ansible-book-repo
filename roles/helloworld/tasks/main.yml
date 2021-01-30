@@ -36,8 +36,32 @@
     state: started
   when: ansible_facts['pkg_mgr'] == "yum"
 
-- name: Starting the helloworld node on SUSE
-  ansible.builtin.systemd:
-    state: started
-    name: pm2-ec2-user
+- name: Stating service on SUSE 1/N Start node as a pm2 service
+  command:
+    cmd: /usr/local/bin/pm2 start helloworld.js
+    chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Starting service on SUSE 2/N Create pm2 as a service on startup
+  command:
+    cmd: sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Starting service on SUSE 3/N Save pm2 service estatus
+  command:
+    cmd: /usr/local/bin/pm2 save
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Starting service on SUSE 4/N Start pm2-ec2-user pm2 service
+  command:
+    cmd: sudo /usr/local/bin/pm2 start pm2-ec2-user
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+# - name: Starting the helloworld node on SUSE
+#   ansible.builtin.systemd:
+#     state: started
+#     name: pm2-ec2-user
+#   when: ansible_facts['pkg_mgr'] == "zypper"
