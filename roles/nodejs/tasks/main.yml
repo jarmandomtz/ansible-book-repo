@@ -31,7 +31,7 @@
 
 - name: Create node service on SUSE 2/N Start node as a pm2 service
   command:
-    cmd: pm2 start helloworld.js
+    cmd: /usr/local/bin/pm2 start helloworld.js
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
 
@@ -43,13 +43,13 @@
 
 - name: Create node service on SUSE 4/N Save pm2 service estatus
   command:
-    cmd: pm2 save
+    cmd: /usr/local/bin/pm2 save
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
 
 - name: Create node service on SUSE 5/N Start pm2-ec2-user pm2 service
   command:
-    cmd: sudo systemctl start pm2-ec2-user
+    cmd: sudo /usr/local/bin/pm2 start pm2-ec2-user
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
 
