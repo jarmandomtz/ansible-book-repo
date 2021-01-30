@@ -23,10 +23,35 @@
   when: ansible_facts['pkg_mgr'] == "yum"
 
 
-- name: Create node service on SUSE
+- name: Create node service on SUSE 1/N: install pm2
   command:
-    cmd: sudo npm install pm2@latest -g && pm2 start helloworld.js && sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user && sleep 30 && pm2 save && sleep 30 && sudo systemctl start pm2-ec2-user 
+    cmd: sudo npm install pm2@latest -g
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Create node service on SUSE 2/N: Start node as a pm2 service
+  command:
+    cmd: pm2 start helloworld.js
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Create node service on SUSE 3/N: Create pm2 as a service on startup
+  command:
+    cmd: sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Create node service on SUSE 4/N: Save pm2 service estatus
+  command:
+    cmd: pm2 save
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Create node service on SUSE 5/N: Start pm2-ec2-user pm2 service
+  command:
+    cmd: sudo systemctl start pm2-ec2-user
+    chdir: /home/ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
 # suse
 # community.general.zypper
