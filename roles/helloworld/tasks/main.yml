@@ -38,7 +38,7 @@
 
 - name: Stating service on SUSE 1/N Start node as a pm2 service
   command:
-    cmd: /usr/local/bin/pm2 start helloworld.js
+    cmd: /usr/local/bin/pm2 start -f helloworld.js
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
 
