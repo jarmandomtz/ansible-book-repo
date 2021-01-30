@@ -54,14 +54,14 @@
     chdir: /home/ec2-user
   when: ansible_facts['pkg_mgr'] == "zypper"
 
-- name: Starting service on SUSE 4/N Start pm2-ec2-user pm2 service
-  command:
-    cmd: sudo /usr/local/bin/pm2 start pm2-ec2-user
-    chdir: /home/ec2-user
-  when: ansible_facts['pkg_mgr'] == "zypper"
-
-# - name: Starting the helloworld node on SUSE
-#   ansible.builtin.systemd:
-#     state: started
-#     name: pm2-ec2-user
+# - name: Starting service on SUSE 4/N Start pm2-ec2-user pm2 service
+#   command:
+#     cmd: sudo /usr/local/bin/pm2 start pm2-ec2-user
+#     chdir: /home/ec2-user
 #   when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Starting the helloworld node on SUSE
+  ansible.builtin.systemd:
+    state: started
+    name: pm2-ec2-user
+  when: ansible_facts['pkg_mgr'] == "zypper"
