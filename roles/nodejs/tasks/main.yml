@@ -1,7 +1,18 @@
 ---
 # tasks file for nodejs
+- name: Install nodejs on suse
+  community.general.zypper:
+    name: nodejs
+    state: present
+  when: ansible_facts['pkg_mgr'] == "zypper"
 
-- name: Installing node and npm
+- name: Install npm on suse
+  community.general.zypper:
+    name: npm
+    state: present
+  when: ansible_facts['pkg_mgr'] == "zypper"
+
+- name: Installing node and npm on Debian/Ubuntu
   yum:
     name: "{{item}}"
     enablerepo: epel
@@ -9,3 +20,7 @@
   with_items:
     - nodejs
     - npm
+  when: ansible_facts['pkg_mgr'] == "yum"
+
+# suse
+# community.general.zypper
