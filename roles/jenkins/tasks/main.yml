@@ -1,5 +1,15 @@
 ---
 # tasks file for jenkins
+# AWS Linux comes with Java7, we need uninstall this and install Java8. Jenkins 2.54 and above needs Java8
+- name: Uninstall Java 7
+  yum:
+    name: java-1.7.0-openjdk
+    state: absent
+
+- name: Install Java 8
+  yum:
+    name: java-1.8.0-openjdk
+    state: present
 
 - name: Add Yum Jenkins repository
   shell: wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
@@ -20,14 +30,3 @@
     name: jenkins
     enabled: yes
     state: started
-
-# AWS Linux comes with Java7, we need uninstall this and install Java8. Jenkins 2.54 and above needs Java8
-- name: Uninstall Java 7
-  yum:
-    name: java-1.7.0-openjdk
-    state: absent
-
-- name: Install Java 8
-  yum:
-    name: java-1.8.0-openjdk
-    state: present

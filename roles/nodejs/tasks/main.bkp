@@ -13,9 +13,9 @@
     state: present
   when: ansible_facts['pkg_mgr'] == "zypper"
 
-- name: Installing node and npm on Debian/Ubuntu
+- name: Installing node and npm on Debian Ubuntu
   yum:
-    name: "{{item}}"
+    name: "{{ item }}"
     enablerepo: epel
     state: installed
   with_items:
