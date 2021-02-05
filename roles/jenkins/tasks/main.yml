@@ -21,7 +21,7 @@
 
 - name: Install jenkins
   yum:
-#    name: jenkins-2.99
+#    name: jenkins-2.99 #Signend with previos GPG key, is not working with current GPG key
     name: jenkins
     enablerepo: jenkins
     state: present
