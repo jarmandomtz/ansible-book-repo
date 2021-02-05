@@ -1,7 +1,7 @@
 ---
 # tasks file for helloworld
 
-- name: Copying application file
+- name: Copying application file on SUSE
   copy:
     src: helloworld.js
     dest: /home/ec2-user/
@@ -11,7 +11,7 @@
   notify: restart helloworld #Just executed if any change is done
   when: ansible_facts['pkg_mgr'] == "zypper"
 
-- name: Copying application file
+- name: Copying application file on  RHEL
   copy:
     src: helloworld.js
     dest: /home/ec2-user/
@@ -21,7 +21,7 @@
   notify: restart helloworld #Just executed if any change is done
   when: ansible_facts['pkg_mgr'] == "yum"
 
-- name: Copying upstart file
+- name: Copying upstart file on RHEL
   copy:
     src: helloworld.conf
     dest: /etc/init/helloworld.conf
@@ -30,7 +30,7 @@
     mode: 0644
   when: ansible_facts['pkg_mgr'] == "yum"
 
-- name: Starting the helloworld node
+- name: Starting the helloworld node on RHEL
   service:
     name: helloworld
     state: started

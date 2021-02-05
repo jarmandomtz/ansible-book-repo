@@ -1,2 +1,2 @@
 # Cron job to git clone/pull a repo and then run locally
-{{ schedule }} ansible-pull -U {{ repo_url }} helloworld.yml  {{ host_cmd }} >>{{ logfile }} 2>&1
+{{ schedule }} ansible-pull -U {{ repo_url }} {{ ansible_file }} {{ host_cmd }} >>{{ logfile }} 2>&1

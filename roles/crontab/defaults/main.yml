@@ -22,3 +22,6 @@ repo_url: https://github.com/jarmandomtz/ansible-book-repo.git
 
 # host command
 host_cmd: '-i localhost'
+
+# Ansible Starter file
+ansible_file: helloworld.yml
