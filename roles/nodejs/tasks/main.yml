@@ -1,5 +1,6 @@
 ---
 # tasks file for nodejs
+
 - name: Install nodejs on suse
   community.general.zypper:
     name: nodejs
@@ -23,7 +24,7 @@
   when: ansible_facts['pkg_mgr'] == "yum"
 
 
-- name: Install pm2 startup manager on SUSE 
+- name: Install pm2 startup manager on SUSE
   command:
     cmd: sudo npm install pm2@latest -g
     chdir: /home/ec2-user
