@@ -29,10 +29,54 @@ ssh -i ~/.ssh/EffectiveDevOpsAWS.pem ec2-user@PUBLIC_IP
 */2 * * * *  /usr/bin/ansible-pull -U https://github.com/jarmandomtz/ansible-book-repo.git helloworld.yml -i localhost >>/var/log/ansible-pull.log 2>&1
 ```
 
-## Stepś to add code-deploy for WebServer
-- Add aws code deploy dependency
-
+## Steps to add code-deploy for WebServer
+- Add aws code deploy dependency to library path
+- Create codedeploy role, enable aws_codedeploy library
+- Create new playbook for prepare nodejs server **nodeserver.js**
+- Create Troposphere template for WebServer **nodeserver-cf-template.py** and add new policy giving S3 permissions
+- Create CloudFormation template
+- Launch CloudFormation template
 ```
 % mkdir library
 % curl -L https://raw.githubusercontent.com/yogeshraheja/Effective-DevOps-with-AWS/master/Chapter05/ansible/library/aws_codedeploy > ./library/aws_codedeploy
+% cd roles
+% ansible-galaxy init codedeploy
+% nano codedeploy/tasks/main.yml                  # enable use of aws_codedeploy
+% cd ..
+% nano nodeserver.js                              # Playbook for prepare WebServer, install roles: nodejs, codedeploy
+...
+% python nodeserver-cf-template.py > nodeserver-cf.template
+% aws cloudformation create-stack \
+      --capabilities CAPABILITY_IAM \
+      --stack-name helloworld-staging \
+      --template-body file://nodeserver-cf.template \
+      --parameters ParameterKey=KeyPair,ParameterValue=EffectiveDevOpsAWS
 ```
+
+- Create IAM service role for CodeDeploy
+
+```
+% aws iam create-role \
+    --role-name CodeDeployServiceRole \
+    --assume-role-policy-document file://misc/CodeDeploy-Trust.json
+```
+
+- Attach role policy to provide the proper permisions to the service role
+
+```
+% aws iam attach-role-policy \
+    --role-name CodeDeployServiceRole \
+    --policy-arn arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole
+
+```
+
+This give next policies to the role
+- Amazon EC2 Auto Scaling
+- Amazon CloudWatch
+- Amazon EC2
+- Elastic Load Balancing
+- Amazon SNS
+- Amazon Resource Group Tagging API
+
+- Go to CodeDeploy and create an application
+Developer Tools -> CodeDeploy -> Applications -> Create application
