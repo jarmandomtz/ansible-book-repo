@@ -27,4 +27,4 @@ host_cmd: '-i localhost'
 branch_cmd: '-C code-deploy'
 
 # Ansible Starter file
-ansible_file: nodejs.yml
+ansible_file: nodeserver.yml
