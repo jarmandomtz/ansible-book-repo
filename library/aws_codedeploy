@@ -36,11 +36,14 @@ def on_ec2():
     try:
         instance_metadata = boto.utils.get_instance_metadata(timeout=2, num_retries=2)
         if 'instance-id' in instance_metadata.keys() and len(instance_metadata['instance-id']) > 0:
-            return True
+            #return True
+            return 1
         else:
-            return False
+            #return False
+            return 0
     except:
-        return False
+        #return False
+        return -1
 
 # Determine what kind of instance
 def os_type():
@@ -122,8 +125,7 @@ def main():
     except Exception, e:
         module.fail_json(msg=str(e))
 
-    #module.exit_json(installed=True)
-    module.exit_json(installed=1)
+    module.exit_json(installed=True)
 
 from ansible.module_utils.basic import *
 from ansible.module_utils.urls import *
