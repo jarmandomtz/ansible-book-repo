@@ -1,7 +1,7 @@
 ---
 # defaults file for provision_ansible_pull_update
 # schedule is fed directly to cron
-schedule: '*/2 * * * *'
+schedule: '*/20 * * * *'
 
 # User to run ansible-pull as from cron
 cron_user: ec2-user
