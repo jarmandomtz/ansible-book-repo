@@ -4,6 +4,7 @@
   roles:
     - nodejs
     - codedeploy
+    - crontab
 
 # - src: git@github.com:aptoma/ansible-aws-codedeploy
 #   scm: git

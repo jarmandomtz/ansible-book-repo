@@ -24,7 +24,7 @@ repo_url: https://github.com/jarmandomtz/ansible-book-repo.git
 host_cmd: '-i localhost'
 
 # Specific branch
-branch_cmd: '-C code-deploy'
+branch_cmd: '-C main'
 
 # Ansible Starter file
 ansible_file: nodeserver.yml
