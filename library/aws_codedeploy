@@ -122,7 +122,8 @@ def main():
     except Exception, e:
         module.fail_json(msg=str(e))
 
-    module.exit_json(installed=True)
+    #module.exit_json(installed=True)
+    module.exit_json(installed=1)
 
 from ansible.module_utils.basic import *
 from ansible.module_utils.urls import *
