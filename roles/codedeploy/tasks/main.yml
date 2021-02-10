@@ -5,11 +5,17 @@
 #    enabled: yes
 
 # tasks file for aptoma.aws-codedeploy
+# - name: Install Packages
+#   become: true
+#   apt:
+#     update_cache: yes
+#     name: ruby
+
 - name: Install Packages
   become: true
-  apt:
-    state: latest
+  yum:
     name: ruby
+    state: present
     update_cache: yes
 
 - name: Download CodeDeploy Agent
