@@ -1,6 +1,23 @@
 ---
 # tasks file for codedeploy
-- name: Installs and starts the AWS CodeDeploy Agent
-  aws_codedeploy:
-    enabled: yes
-    
+#- name: Installs and starts the AWS CodeDeploy Agent
+#  aws_codedeploy:
+#    enabled: yes
+
+# tasks file for aptoma.aws-codedeploy
+- name: Install Packages
+  become: true
+  apt:
+    state: latest
+    name: ruby
+    update_cache: yes
+
+- name: Download CodeDeploy Agent
+  get_url:
+    url: "https://aws-codedeploy-{{ aws_region }}.s3.amazonaws.com/latest/install"
+    dest: /tmp/codedeploy-install
+    mode: 0755
+
+- name: Codedeploy Install
+  become: true
+  shell: AWS_REGION={{ aws_region }} /tmp/codedeploy-install auto

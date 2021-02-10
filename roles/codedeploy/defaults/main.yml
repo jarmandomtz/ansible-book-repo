@@ -1,2 +1,6 @@
 ---
 # defaults file for codedeploy
+#In our region it does not exist
+#aws_region: us-east-1
+#https://aws-codedeploy-eu-central-1.s3.amazonaws.com/latest/install
+aws_region: eu-central-1
